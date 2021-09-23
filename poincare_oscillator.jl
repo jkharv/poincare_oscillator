@@ -1,5 +1,4 @@
 using DynamicalSystems
-using CairoMakie
 
 function stim_map(x, p , n)
     r, ϕ = x[1], x[2]
@@ -11,15 +10,22 @@ function stim_map(x, p , n)
     r_new = r_per / ((1 - r_per) * exp(-k * τ) + r_per)
     ϕ_new = mod(ϕ_per + τ, 1) 
     
-    return SVector(r_new, ϕ_new)
+    Δ = ϕ_per + τ - ϕ_new
+
+    return SVector(r_new, ϕ_new, Δ)
 end
 
-state0 = [1.0, 0.0] # r, ϕ
-parameters = [1000, 0.5, 1.5] # k, τ, b
+state0 = [1.0, 0.0, 0.0] # r, ϕ, Δ
+parameters = [1000, 0.75, 0.5] # k, τ, b
 stim_system = DiscreteDynamicalSystem(stim_map, state0, parameters)
 
-t = trajectory(stim_system, 100)
+# Discard 500 from the begining as a transient. 
+t = trajectory(stim_system, 2000)[500:end] 
 
-f = lines(t[:,2], markersize = 3, resolution = (200, 200))
+# See Langfield et al 2017. eq (4)
+function rotation_number(ds::Dataset)::AbstractFloat
 
-save("attractor.pdf", f)
+_, _, c = columns(t)
+
+
+end
