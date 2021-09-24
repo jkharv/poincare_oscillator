@@ -1,53 +1,77 @@
 using DynamicalSystems
 using DataFrames
+using CairoMakie
 
 # Dynamic rule
 function stim_map(x, p , n)
-    r, ϕ = x[1], x[2]
+    x, y = x[1], x[2]
     k, τ, b = p[1], p[2], p[3]
 
-    r_per = sqrt(r^2 + b^2 + 2*b*r*cos(2*π*ϕ))
-    ϕ_per = acos((r*cos(2*π*ϕ) + b) / r_per) / 2*π
+    r = sqrt((x + b)^2 + y^2)
 
-    r_new = r_per / ((1 - r_per) * exp(-k * τ) + r_per)
-    ϕ_new = mod(ϕ_per + τ, 1) 
-    
-    Δ = ϕ_per + τ - ϕ_new
+    x_new = ((x + b) * cos(2*π*τ) - y*sin(2*π*τ)) / ((1 - r)*exp(-k*τ) + r)
+    y_new = (y*cos(2*π*τ) + (x + b)*sin(2*π*τ)) / ((1 - r)*exp(-k*τ) + r)
 
-    return SVector(r_new, ϕ_new, Δ)
+    # Convert back to polar coords to look at stuff.
+    ϕ = atan2(y_new, x_new)
+
+    return SVector(x_new, y_new, ϕ)
 end
 
-# See Langfield et al 2017. eq (4)
-function rotation_number(ds::Dataset)::AbstractFloat
+# atan2() but between 0 and 2π then normalized 0 to 1
+function atan2(y, x)
 
-    _, _, c = columns(ds)
+    θ = atan(y, x)
+    if(θ < 0)
+        θ = θ + (2*π)    
+    end
+    θ = θ / (2*π)
+    return(θ)
+end
 
-    μ = c[1]
-    μ_max = μ
-    N = length(c)
+# Returns -1 for not periodic
+function detect_period(ds::Dataset)::Integer
 
-    for i in 2:N
-        
-        μ = (c[i] + i * μ)/(i + 1) # Running average
+    _, _, ϕ = columns(ds)
 
-        if μ > μ_max
-            μ_max = μ   #lim sup
+    ϕ_zero = ϕ[1]
+    period = -1
+
+    for i in 2:1:length(ϕ)
+        if ϕ[i] == ϕ_zero
+            period = i - 1
+            break
         end
     end
-    return(μ_max)
+
+    return(period)
 end
 
-points = DataFrame(τ = AbstractFloat[], b = AbstractFloat[], ρ = AbstractFloat[])
-for τ in 0.50:0.001:1.0
-    for b in 2.0:0.001:2.0
+points = DataFrame(τ = Float64[], b = Float64[])
+for τ in 0.49:0.001:1.0
+    for b in 1.0:0.001:2.0
 
-        state0 = [1.0, 0.0, 0.0] # r, ϕ, Δ
+        state0 = [1.0, 0.0, 0.0] # x, y, ϕ
         parameters = [1000, τ, b] # k, τ, b
         stim_system = DiscreteDynamicalSystem(stim_map, state0, parameters)
         
         # Discard 500 from the begining as a transient. 
-        t = trajectory(stim_system, 2500)[500:end] 
-        ρ = rotation_number(t)
-        push!(points, [τ, b, ρ])
+        t = trajectory(stim_system, 3021)[500:end] 
+        push!(points, [τ, b])
     end
 end
+
+state0 = [1.0, 0.0, 0] # x, y, ϕ
+parameters = [500, 0.5, 1.5] # k, τ, b
+stim_system = DiscreteDynamicalSystem(stim_map, state0, parameters)
+
+# Discard 500 from the begining as a transient. 
+t = trajectory(stim_system, 10000)[500:end]
+
+a, b, c = columns(t)
+
+x = c
+y = circshift(c, 1)
+
+scatter(y[2:end-1], x[2:end-1])
+detect_period(t)
