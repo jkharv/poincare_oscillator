@@ -36,9 +36,10 @@ function detect_period(ds::Dataset)::Integer
 
     ϕ_zero = ϕ[1]
     period = -1
+    ϵ = 0.0001
 
     for i in 2:1:length(ϕ)
-        if ϕ[i] == ϕ_zero
+        if abs(ϕ[i] - ϕ_zero) < ϵ
             period = i - 1
             break
         end
