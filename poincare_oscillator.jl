@@ -111,23 +111,24 @@ end
 points = make_frame(0.0, 1.0, 0.0, 2.0, 50, 0.001)
 transform!(points, :p => ByRow(categorize_period) => :colour)
 
-scatter(points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
+big_plot = scatter(points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
+save("plots/big_plot.png", big_plot)
 
 # Zoomed into upper left branch, interesting stuff here. 
 points = make_frame(0.25, 0.45, 0.9, 1.25, 500, 0.0001)
 transform!(points, :p => ByRow(categorize_period) => :colour)
 
-scatter(points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
+zoom_plot = scatter(points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
+save("plots/zoom_plot.png", zoom_plot)
 
 # Zoomed into the region at (tau=0.25, b=1)
 points = make_frame(0.24, 0.28, 0.99, 1.02, 500, 0.00001)
 transform!(points, :p => ByRow(categorize_period) => :colour)
 
-scatter(points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
-
+zoom_zoom_plot = scatter(points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
+save("plots/zoom_zoom_plot.png", zoom_zoom_plot)
 
 # Animated figure of chaning k value.
-
 points = make_frame(0.0, 1.0, 0.0, 2.0, 50, 0.002)
 transform!(points, :p => ByRow(categorize_period) => :colour)
    
@@ -138,7 +139,32 @@ c = Observable(points[:,4])
 scene = scatter(τ, b, color = c, markersize = 1.5)
 record(scene, "plots/vary_k.gif") do io
     
-    for k = 50:-0.5:0
+    for k = 50:-0.25:0
+
+        points = make_frame(0.0, 1.0, 0.0, 2.0, k, 0.002)
+        transform!(points, :p => ByRow(categorize_period) => :colour)
+        
+        τ[] = points[:,1]
+        b[] = points[:,2]
+        c[] = points[:,4]
+
+        recordframe!(io) # record a new frame
+    end
+end
+
+
+# Animated figure of changing k value zoom in at the end.
+points = make_frame(0.0, 1.0, 0.0, 2.0, 50, 0.002)
+transform!(points, :p => ByRow(categorize_period) => :colour)
+   
+τ = Observable(points[:,1])
+b = Observable(points[:,2])
+c = Observable(points[:,4])
+
+scene = scatter(τ, b, color = c, markersize = 1.5)
+record(scene, "plots/vary_small_k.gif") do io
+    
+    for k = 5:-0.005:0
 
         points = make_frame(0.0, 1.0, 0.0, 2.0, k, 0.002)
         transform!(points, :p => ByRow(categorize_period) => :colour)
