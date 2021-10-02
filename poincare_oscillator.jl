@@ -48,6 +48,7 @@ function detect_period(ds::Dataset)::Integer
     return(period)
 end
 
+# Do the simulations for one frame of a periodicity chart.
 function make_frame(τ_start, τ_end, b_start, b_end, k, stepsize)
     
     l = ReentrantLock()
@@ -67,6 +68,31 @@ function make_frame(τ_start, τ_end, b_start, b_end, k, stepsize)
                 push!(points, [τ, b, period])
            finally
                 unlock(l)
+           end
+        end
+    end
+    return points
+end
+
+# Do the simulations needed for one frame of a lyapunov chart
+function make_frame_lyapunov(τ_start, τ_end, b_start, b_end, k, stepsize)
+    
+    ll = ReentrantLock()
+    points = DataFrame(τ = Float64[], b = Float64[], λ = Float64[])
+    for τ in τ_start:stepsize:τ_end
+        Threads.@threads for b in b_start:stepsize:b_end
+
+            state0 = [1.0, 0.1, 0.0] # x, y, ϕ
+            parameters = [k, τ, b] # k, τ, b
+            stim_system = DiscreteDynamicalSystem(stim_map, state0, parameters)
+
+            λ = lyapunov(stim_system, 1000, Ttr = 500)
+
+           lock(ll)
+           try
+                push!(points, [τ, b, λ])
+           finally
+                unlock(ll)
            end
         end
     end
@@ -131,6 +157,26 @@ ax = Axis(big_plot[1, 1], xlabel = "τ", ylabel = "b")
 scatter!(ax, points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
 Legend(big_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
 save("plots/big_plot.png", big_plot)
+
+# Big plot k 10
+points = make_frame(0.01, 1.01, 0.0, 2.0, 10, 0.001)
+transform!(points, :p => ByRow(categorize_period) => :colour)
+
+big_plot = Figure()
+ax = Axis(big_plot[1, 1], xlabel = "τ", ylabel = "b")
+scatter!(ax, points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
+Legend(big_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
+save("plots/big_plot_k10.png", big_plot)
+
+# Big plot k 1
+points = make_frame(0.01, 1.01, 0.0, 2.0, 1, 0.001)
+transform!(points, :p => ByRow(categorize_period) => :colour)
+
+big_plot = Figure()
+ax = Axis(big_plot[1, 1], xlabel = "τ", ylabel = "b")
+scatter!(ax, points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
+Legend(big_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
+save("plots/big_plot_k1.png", big_plot)
 
 # Big plot w/ line
 big_plot_w_line = Figure()
@@ -232,3 +278,13 @@ record(scene, "plots/vary_small_k.gif") do io
         recordframe!(io) # record a new frame
     end
 end
+
+# Big lyapunov plot 
+points = make_frame_lyapunov(0.0, 1.0, 0.0, 2.0, 50, 0.01)
+
+big_plot_lyapunov = Figure()
+ax = Axis(big_plot_lyapunov[1, 1], xlabel = "τ", ylabel = "b")
+scatter!(ax, points[:,1], points[:,2], color = points[:,3], markersize = 10)
+#Legend(big_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
+#save("plots/big_plot_lyapunov.png", big_plot_lyapunov)
+big_plot_lyapunov
