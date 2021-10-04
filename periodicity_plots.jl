@@ -143,13 +143,3 @@ record(scene, "plots/vary_small_k.gif") do io
         recordframe!(io) # record a new frame
     end
 end
-
-# Big lyapunov plot 
-points = make_frame_lyapunov(0.0, 1.0, 0.0, 2.0, 50, 0.01)
-
-big_plot_lyapunov = Figure()
-ax = Axis(big_plot_lyapunov[1, 1], xlabel = "τ", ylabel = "b")
-scatter!(ax, points[:,1], points[:,2], color = points[:,3], markersize = 10)
-#Legend(big_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
-#save("plots/big_plot_lyapunov.png", big_plot_lyapunov)
-big_plot_lyapunov

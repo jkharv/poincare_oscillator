@@ -47,6 +47,7 @@ end
 # Do the simulations for one frame of a periodicity chart.
 function make_frame(τ_start, τ_end, b_start, b_end, k, stepsize)
     
+    # Prevent race condition on data frame access.
     l = ReentrantLock()
     points = DataFrame(τ = Float64[], b = Float64[], p = Float64[])
     for τ in τ_start:stepsize:τ_end
