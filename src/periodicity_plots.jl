@@ -14,6 +14,7 @@ labels =  ["Period-1", "Period-2", "Period-3", "Period-4", "Period-5",
            "Period-6", "Period-7", "Period-8", "Aperiodic"]
 
 # Big plot
+println("Plotting big plot with k = 50")
 points = make_frame(0.0, 1.0, 0.0, 2.0, 50, 0.001)
 transform!(points, :p => ByRow(categorize_period) => :colour)
 
@@ -24,6 +25,7 @@ Legend(big_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
 save("plots/big_plot.png", big_plot)
 
 # Big plot k 10
+println("Plotting big plot with k = 10")
 points = make_frame(0.01, 1.01, 0.0, 2.0, 10, 0.001)
 transform!(points, :p => ByRow(categorize_period) => :colour)
 
@@ -34,6 +36,7 @@ Legend(big_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
 save("plots/big_plot_k10.png", big_plot)
 
 # Big plot k 1
+println("Plotting bif plot with k = 1")
 points = make_frame(0.01, 1.01, 0.0, 2.0, 1, 0.001)
 transform!(points, :p => ByRow(categorize_period) => :colour)
 
@@ -44,6 +47,7 @@ Legend(big_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
 save("plots/big_plot_k1.png", big_plot)
 
 # Big plot w/ line
+println("Plotting big plot with analyitcally derived boundary")
 big_plot_w_line = Figure()
 ax = Axis(big_plot_w_line[1, 1], xlabel = "τ", ylabel = "b")
 scatter!(ax, points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
@@ -65,6 +69,7 @@ lines!(ax, xs, ys, linewidth = 2, color = :black)
 save("plots/big_plot_w_line.png", big_plot_w_line)
 
 # Zoomed into upper left branch, interesting stuff here. 
+println("Plotting zoom plot with k = 500")
 points = make_frame(0.25, 0.45, 0.9, 1.25, 500, 0.0001)
 transform!(points, :p => ByRow(categorize_period) => :colour)
 
@@ -75,6 +80,7 @@ Legend(zoom_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
 save("plots/zoom_plot.png", zoom_plot)
 
 # Zoomed into the region at (tau=0.25, b=1)
+println("Plotting zoom plot centred at τ = 0.25, b = 1")
 points = make_frame(0.24, 0.28, 0.99, 1.02, 500, 0.00001)
 transform!(points, :p => ByRow(categorize_period) => :colour)
 
@@ -85,6 +91,7 @@ Legend(zoom_zoom_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
 save("plots/zoom_zoom_plot.png", zoom_zoom_plot)
 
 # Animated figure of chaning k value.
+println("Animating changing k value")
 points = make_frame(0.0, 1.0, 0.0, 2.0, 50, 0.002)
 transform!(points, :p => ByRow(categorize_period) => :colour)
    
@@ -115,6 +122,7 @@ record(scene, "plots/vary_k.gif") do io
 end
 
 # Animated figure of changing k value zoom in at the end.
+println("Animating changing k for small values of k")
 points = make_frame(0.0, 1.0, 0.0, 2.0, 5, 0.002)
 transform!(points, :p => ByRow(categorize_period) => :colour)
    
