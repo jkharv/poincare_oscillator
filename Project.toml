@@ -2,3 +2,9 @@
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 DynamicalSystems = "61744808-ddfa-5f27-97ff-6e42cc95d634"
+
+[compat]
+julia = "1.7.2"
+CairoMakie = "0.7.4"
+DataFrames = "1.3.2"
+DynamicalSystems = "2.1.7"

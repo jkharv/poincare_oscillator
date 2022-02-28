@@ -15,6 +15,27 @@ Here we also include visual GIFs of the changing phase locking zones as a functi
 ![vary_k](https://github.com/kiristern/poincare_oscillator/blob/main/plots/vary_k.gif?raw=true)
 
 ![vary_small_k](https://github.com/kiristern/poincare_oscillator/blob/main/plots/vary_small_k.gif?raw=true)
+=======
+# poincare_oscillator
+
+A replication of 
+
+[L. Glass and J. Sun. “Periodic forcing of a limit-cycle oscillator: Fixed
+points, Arnold tongues, and the global organization of bifurcations.” In:
+Physical Review. E, Statistical Physics, Plasmas, Fluids, and Related Inter-
+disciplinary Topics; (United States) 50:6 (Dec. 1994).](
+https://journals.aps.org/pre/abstract/10.1103/PhysRevE.50.5077)
+
+## Authors 
+
+Jacob K. Harvey - [Github](https://github.com/jkharv),
+[ORCID](https://orcid.org/0000-0003-3713-1824)
+
+Lucas Philipp - [Github](https://github.com/lucasphilipp1),
+[ORCID](https://orcid.org/0000-0001-6454-4275)
+
+Kiri Stern - [Github](https://github.com/kiristern),
+[ORCID](https://orcid.org/0000-0002-5720-2581)
 
 ## Running the code
 
