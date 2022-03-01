@@ -16,9 +16,9 @@ https://journals.aps.org/pre/abstract/10.1103/PhysRevE.50.5077
 Here we also include visual GIFs of the changing phase locking zones as a
 function of changing relaxation rate to the limit cycle:
 
-![vary_k](https://github.com/kiristern/poincare_oscillator/blob/main/plots/vary_k.gif?raw=true)
+![vary_k](https://github.com/jkharv/poincare_oscillator/blob/main/plots/vary_k.gif?raw=true)
 
-![vary_small_k](https://github.com/kiristern/poincare_oscillator/blob/main/plots/vary_small_k.gif?raw=true)
+![vary_small_k](https://github.com/jkharv/poincare_oscillator/blob/main/plots/vary_small_k.gif?raw=true)
 
 =======
 
