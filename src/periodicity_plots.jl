@@ -47,7 +47,7 @@ Legend(big_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
 save("plots/big_plot_k1.png", big_plot)
 
 # Big plot w/ line
-println("Plotting big plot with analyitcally derived boundary")
+println("Plotting big plot with analytically derived boundary")
 big_plot_w_line = Figure()
 ax = Axis(big_plot_w_line[1, 1], xlabel = "τ", ylabel = "b")
 scatter!(ax, points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
