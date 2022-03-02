@@ -5,3 +5,4 @@ using CairoMakie
 include("oscillator_simulation.jl")
 include("periodicity_plots.jl")
 include("function_plots.jl")
+include("3d_plots.jl")
