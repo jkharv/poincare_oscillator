@@ -1,0 +1,119 @@
+# To be filled by the author(s) at the time of submission
+# -------------------------------------------------------
+
+# Title of the article:
+#  - For a successful replication, it should be prefixed with "[Re]"
+#  - For a failed replication, it should be prefixed with "[¬Re]"
+#  - For other article types, no instruction (but please, not too long)
+title: "[Re] Periodic forcing of a limit-cycle oscillator: Fixed points, Arnold tongues, and the global organization of bifurcations" 
+
+# List of authors with name, orcid number, email and affiliation
+# Affiliation "*" means contact author (required even for single-authored papers)
+authors:
+  - name: Jacob K. Harvey
+    orcid: 0000-0003-3713-1824
+    email: jacob.harvey@mail.mcgill.ca
+    affiliations: 1,2
+
+  - name: Lucas Philipp
+    orcid: 0000-0001-6454-4275
+    email: lucas.philipp@mail.mcgill.ca
+    affiliations: 1,2, *        # * is for contact author
+
+  - name: Kiri Stern
+    orcid: 0000-0002-5720-2581
+    email: kiri.stern@mail.mcgill.ca
+    affiliations: 1,2
+
+# List of affiliations with code (corresponding to author affiliations), name
+# and address. You can also use these affiliations to add text such as "Equal
+# contributions" as name (with no address).
+affiliations:
+  - code:    1
+    name:    Quantitative Life Sciences, McGill University
+    address: 550 Sherbrooke W., Montréal (QC), H3A 1E3, Canada
+  - code:    2
+    name:    Equal contributions
+    
+# List of keywords (adding the programming language might be a good idea)
+keywords: Poincare, oscillators, non-linear dynamics, phase-locking, phase-space, relaxation, Julia
+
+# Code URL and DOI/SWH (url is mandatory for replication, doi after acceptance)
+# You can get a DOI for your code from Zenodo, or an SWH identifier from
+# Software Heritage.
+#   see https://guides.github.com/activities/citable-code/
+code:
+  - url: https://github.com/jkharv/poincare_oscillator
+  - doi:
+
+# Information about the original article that has been replicated
+replication:
+  - cite: Glass, L., Sun, J. 1994. Periodic forcing of a limit-cycle oscillator:
+         Fixed points, Arnold tongues, and the global organization of bifurcations.
+         Physical Review E 50, 5077–5084. doi:10.1103/PhysRevE.50.5077 # Full textual citation
+ - url:  https://journals.aps.org/pre/abstract/10.1103/PhysRevE.50.5077 # URL to the PDF, try to link to a non-paywall version
+ - doi:  doi:10.1103/PhysRevE.50.5077 # Regular digital object identifier
+
+
+# Don't forget to surround abstract with double quotes
+abstract: "The effects of periodic forcing of a nonlinear limit-cycle oscillator
+          at varying relaxation rates allow for the theoretical study of periodic
+          pulsatile stimulations of cardiac oscillators. Here, we successfully replicate
+          a mathematical model by Glass & Sun (1994) analyzing the dynamics of this system.
+          We remark on the differing phase-locking regions given varying relaxation rates,
+          stimulus intensities, and time intervals between stimulations; as well as algebraically computed the boundary along the 1:0 and 1:1 phase locking regions and identified a tangent bifurcation."
+
+# Bibliography file (yours)
+bibliography: bibliography.bib
+
+# Type of the article
+# Type can be:
+#  * Editorial
+#  * Letter
+#  * Replication
+type: Replication
+
+# Scientific domain of the article (e.g. Computational Neuroscience)
+#  (one domain only & try to be not overly specific)
+domain: Non-linear dynamics
+
+# Coding language (main one only if several)
+language: Julia Lang
+
+
+# To be filled by the author(s) after acceptance
+# -----------------------------------------------------------------------------
+
+# For example, the URL of the GitHub issue where review actually occured
+review:
+  - url:
+
+contributors:
+  - name:
+    orcid:
+    role: editor
+  - name:
+    orcid:
+    role: reviewer
+  - name:
+    orcid:
+    role: reviewer
+
+# This information will be provided by the editor
+dates:
+  - received:
+  - accepted:
+  - published:
+
+# This information will be provided by the editor
+article:
+  - number: # Article number will be automatically assigned during publication
+  - doi:    # DOI from Zenodo
+  - url:    # Final PDF URL (Zenodo or rescience website?)
+
+# This information will be provided by the editor
+journal:
+  - name:   "ReScience C"
+  - issn:   
+  - volume: 
+  - issue:  
