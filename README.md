@@ -45,6 +45,7 @@ git clone https://github.com/jkharv/poincare_oscillator
 multiple threads, using the `-t` argument you can start Julia with multiple
 threads. Setting this to `auto` uses all available threads, otherwise set it to
 any integer value of threads you wish to use.
+*N.B. This script takes about 25-30 minutes to compile when running on 16 threads.
 
 ```
 julia -t auto
