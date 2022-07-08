@@ -22,13 +22,11 @@ function nodiff(ϕ, b)
 
     modArg2 = (1/2π) * acos(
                             ϵ_fix(
-                                  real(
-                                       -sqrt(Complex(
-                                                    (b^2 - 1)/
-                                                     3
-                                                    )
-                                            )
-                                      ) 
+                                   -sqrt(Complex(
+                                                (b^2 - 1)/
+                                                 3
+                                                )
+                                        )
                                  )
                            )
 
@@ -38,25 +36,32 @@ function nodiff(ϕ, b)
     if (0 ≤ ϕ ≤ 1/2)
         arg = modArg1 + modArg2
     elseif (1/2 ≤ ϕ ≤ 1)
-        arg = modArg1 - modArg2 + 2
+        arg = -modArg1 - modArg2 + 2
     end 
       
     return ϕ - mod(real(arg), 1)  
 end
 
-bs  = LinRange(0.0, 2.0, 1000);
-# We're doing ϕ in two chunks because there's a discontinuity
+bs  = LinRange(1.0, 2.0, 2000);
+# We're doing ϕ in two chunks (and putting small gap at ϕ=0.5) 
+# because there's a discontinuity
 # that we don't really want rendered as a vertical line.
-ϕs1  = LinRange(0.0, 0.50, 1000); 
+ϕs1  = LinRange(0.0, 0.49999, 1000); 
 fϕ1  = [nodiff(ϕ, b) for ϕ in ϕs1, b in bs];  
 
-ϕs2  = LinRange(0.500001, 1.0, 1000); 
+ϕs2  = LinRange(0.50001, 1.0, 1000); 
 fϕ2  = [nodiff(ϕ, b) for ϕ in ϕs2, b in bs];  
 
-fig = surface(ϕs1, bs, fϕ1);
-surface!(fig.axis, ϕs2, bs, fϕ2);
+fig = Figure(resolution = (1000, 1000));
+ax = Axis3(fig[1, 1],
+           height = 700,
+           width = 700,
+           xlabel = L"ϕ_i",
+           ylabel = L"b",
+           zlabel = "diff");
 
-xlabel!(fig.axis.scene, L"ϕ_1")
-ylabel!(fig.axis.scene, L"b")
-zlabel!(fig.axis.scene, L"ϕ_1 - ϕ_{i+1}")
 
+surface!(ax, ϕs1, bs, fϕ1);
+surface!(ax, ϕs2, bs, fϕ2);
+
+save("plots/test.png", fig)
