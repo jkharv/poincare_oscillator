@@ -10,7 +10,9 @@ function ϵ_fix(x)
     end
 end
 
-function nodiff(ϕ, b)
+function △ϕsurface(ϕ, b, s)
+# S is used to switch the minus sign which differentiatates
+# eq. S17 from S18.
 
     modArg1 = (1/2π) * acos(
                             ϵ_fix(
@@ -22,7 +24,7 @@ function nodiff(ϕ, b)
 
     modArg2 = (1/2π) * acos(
                             ϵ_fix(
-                                   -sqrt(Complex(
+                                   s*sqrt(Complex(
                                                 (b^2 - 1)/
                                                  3
                                                 )
@@ -42,26 +44,92 @@ function nodiff(ϕ, b)
     return ϕ - mod(real(arg), 1)  
 end
 
-bs  = LinRange(1.0, 2.0, 2000);
+# Family of solutions to eq18 of this form =
+# N - acos((-b^2 -2)/3b)/2π where N ∈ Z
+function ϕisoline(b)
+
+    acos((-b^2 -2)/3b)/2π
+end
+
+#
+# Figure of eq. S17
+#
+
+bs = LinRange(1.0, 1.9999, 200);
 # We're doing ϕ in two chunks (and putting small gap at ϕ=0.5) 
 # because there's a discontinuity
 # that we don't really want rendered as a vertical line.
-ϕs1  = LinRange(0.0, 0.49999, 1000); 
-fϕ1  = [nodiff(ϕ, b) for ϕ in ϕs1, b in bs];  
+ϕs1  = LinRange(0.0001, 0.49999, 100); 
+fϕ1  = [△ϕsurface(ϕ, b, -1) for ϕ ∈ ϕs1, b in bs];  
 
-ϕs2  = LinRange(0.50001, 1.0, 1000); 
-fϕ2  = [nodiff(ϕ, b) for ϕ in ϕs2, b in bs];  
+# ϕ pt 2
+ϕs2  = LinRange(0.50001, 1.0, 100); 
+fϕ2  = [△ϕsurface(ϕ, b, -1) for ϕ ∈ ϕs2, b in bs];  
 
-fig = Figure(resolution = (1000, 1000));
+fϕisoline1 = [ϕisoline(b) for b ∈ bs];
+fϕisoline2 = 1 .- fϕisoline1 
+
+fig = Figure(resolution = (2000, 2000));
 ax = Axis3(fig[1, 1],
-           height = 700,
-           width = 700,
+           height = 1600,
+           width = 1600,
            xlabel = L"ϕ_i",
+           xlabelsize = 65,
+           xlabeloffset = 100,
+           xticklabelsize = 40,
            ylabel = L"b",
-           zlabel = "diff");
+           ylabelsize = 65,
+           ylabeloffset = 100,
+           yticklabelsize = 40,
+           zlabel = L"ϕ_{i+1} - ϕ_i",
+           zlabelsize = 65,
+           zlabeloffset = 100,
+           zticklabelsize = 40,
+           azimuth = 1.65π, 
+           elevation = π/7);
 
+    surface!(ax, ϕs1, bs, fϕ1);
+    surface!(ax, ϕs2, bs, fϕ2);
+    lines!(ax, fϕisoline1, bs,
+           color = :black, linewidth = 5);
+    lines!(ax, fϕisoline2, bs,
+           color = :black, linewidth = 5);
 
-surface!(ax, ϕs1, bs, fϕ1);
-surface!(ax, ϕs2, bs, fϕ2);
+save("plots/eq17_fig.svg", fig)
+save("plots/eq17_fig.png", fig)
+           
+#
+# Figure of eq. S18
+#
 
-save("plots/test.png", fig)
+fϕ1  = [△ϕsurface(ϕ, b, 1) for ϕ in ϕs1, b in bs];  
+fϕ2  = [△ϕsurface(ϕ, b, 1) for ϕ in ϕs2, b in bs];  
+
+fig = Figure(resolution = (2000, 2000));
+ax = Axis3(fig[1, 1],
+           height = 1600,
+           width = 1600,
+           xlabel = L"ϕ_i",
+           xlabelsize = 65,
+           xlabeloffset = 100,
+           xticklabelsize = 40,
+           ylabel = L"b",
+           ylabelsize = 65,
+           ylabeloffset = 100,
+           yticklabelsize = 40,
+           zlabel = L"ϕ_{i+1} - ϕ_i",
+           zlabelsize = 65,
+           zlabeloffset = 100,
+           zticklabelsize = 40,
+           azimuth = 1.65π, 
+           elevation = π/7);
+
+    surface!(ax, ϕs1, bs, fϕ1);
+    surface!(ax, ϕs2, bs, fϕ2);
+    lines!(ax, fϕisoline1, bs,
+           color = :black, linewidth = 5);
+    lines!(ax, fϕisoline2, bs,
+           color = :black, linewidth = 5);
+
+save("plots/eqs18_fig.svg", fig)
+save("plots/eqs18_fig.png", fig)
