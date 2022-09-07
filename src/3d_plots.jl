@@ -69,22 +69,22 @@ fϕ2  = [△ϕsurface(ϕ, b, -1) for ϕ ∈ ϕs2, b in bs];
 fϕisoline1 = [ϕisoline(b) for b ∈ bs];
 fϕisoline2 = 1 .- fϕisoline1 
 
-fig = Figure(resolution = (2000, 2000));
+fig = Figure(resolution = (2000, 1700));
 ax = Axis3(fig[1, 1],
-           height = 1600,
+           height = 1700,
            width = 1600,
            xlabel = L"ϕ_i",
-           xlabelsize = 65,
-           xlabeloffset = 100,
-           xticklabelsize = 40,
+           xlabelsize = 75,
+           xlabeloffset = 110,
+           xticklabelsize = 50,
            ylabel = L"b",
-           ylabelsize = 65,
-           ylabeloffset = 100,
-           yticklabelsize = 40,
+           ylabelsize = 75,
+           ylabeloffset = 110,
+           yticklabelsize = 50,
            zlabel = L"ϕ_{i+1} - ϕ_i",
-           zlabelsize = 65,
-           zlabeloffset = 100,
-           zticklabelsize = 40,
+           zlabelsize = 75,
+           zlabeloffset = 110,
+           zticklabelsize = 50,
            azimuth = 1.65π, 
            elevation = π/7);
 
@@ -95,8 +95,8 @@ ax = Axis3(fig[1, 1],
     lines!(ax, fϕisoline2, bs,
            color = :black, linewidth = 5);
 
-save("plots/eq17_fig.svg", fig)
-save("plots/eq17_fig.png", fig)
+save("plots/eqs17_fig.svg", fig)
+save("plots/eqs17_fig.png", fig)
            
 #
 # Figure of eq. S18
@@ -105,22 +105,22 @@ save("plots/eq17_fig.png", fig)
 fϕ1  = [△ϕsurface(ϕ, b, 1) for ϕ in ϕs1, b in bs];  
 fϕ2  = [△ϕsurface(ϕ, b, 1) for ϕ in ϕs2, b in bs];  
 
-fig = Figure(resolution = (2000, 2000));
+fig = Figure(resolution = (2000, 1700));
 ax = Axis3(fig[1, 1],
-           height = 1600,
+           height = 1700,
            width = 1600,
            xlabel = L"ϕ_i",
-           xlabelsize = 65,
-           xlabeloffset = 100,
-           xticklabelsize = 40,
+           xlabelsize = 75,
+           xlabeloffset = 110,
+           xticklabelsize = 50,
            ylabel = L"b",
-           ylabelsize = 65,
-           ylabeloffset = 100,
-           yticklabelsize = 40,
+           ylabelsize = 75,
+           ylabeloffset = 110,
+           yticklabelsize = 50,
            zlabel = L"ϕ_{i+1} - ϕ_i",
-           zlabelsize = 65,
-           zlabeloffset = 100,
-           zticklabelsize = 40,
+           zlabelsize = 75,
+           zlabeloffset = 110,
+           zticklabelsize = 50,
            azimuth = 1.65π, 
            elevation = π/7);
 
