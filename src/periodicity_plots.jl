@@ -18,35 +18,6 @@ println("Plotting big plot with k = 50")
 points = make_frame(0.0, 1.0, 0.0, 2.0, 50, 0.001);
 transform!(points, :p => ByRow(categorize_period) => :colour);
 
-big_plot = Figure()
-ax = Axis(big_plot[1, 1], xlabel = "τ", ylabel = "b")
-scatter!(ax, points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
-Legend(big_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
-save("plots/big_plot.png", big_plot)
-
-# Big plot k 10
-println("Plotting big plot with k = 10")
-points = make_frame(0.01, 1.01, 0.0, 2.0, 10, 0.001);
-transform!(points, :p => ByRow(categorize_period) => :colour)
-
-big_plot = Figure()
-ax = Axis(big_plot[1, 1], xlabel = "τ", ylabel = "b")
-scatter!(ax, points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
-Legend(big_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
-save("plots/big_plot_k10.png", big_plot)
-
-# Big plot k 1
-println("Plotting bif plot with k = 1")
-points = make_frame(0.01, 1.01, 0.0, 2.0, 1, 0.001);
-transform!(points, :p => ByRow(categorize_period) => :colour)
-
-big_plot = Figure()
-ax = Axis(big_plot[1, 1], xlabel = "τ", ylabel = "b")
-scatter!(ax, points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
-Legend(big_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
-save("plots/big_plot_k1.png", big_plot)
-
-# Big plot w/ line
 println("Plotting big plot with analytically derived boundary")
 big_plot_w_line = Figure()
 ax = Axis(big_plot_w_line[1, 1], xlabel = "τ", ylabel = "b")
@@ -65,8 +36,29 @@ upper(x) = sqrt(4 - 3*sin(2*π*x)^2)
 xs = 0.25:0.001:0.75 
 ys = upper.(xs)
 lines!(ax, xs, ys, linewidth = 2, color = :black)
-
 save("plots/big_plot_w_line.png", big_plot_w_line)
+
+# Big plot k 10
+println("Plotting big plot with k = 10")
+points = make_frame(0.01, 1.01, 0.0, 2.0, 10, 0.001);
+transform!(points, :p => ByRow(categorize_period) => :colour)
+
+big_plot = Figure()
+ax = Axis(big_plot[1, 1], xlabel = "τ", ylabel = "b")
+scatter!(ax, points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
+Legend(big_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
+save("plots/big_plot_k10.png", big_plot)
+
+# Big plot k 1
+println("Plotting big plot with k = 1")
+points = make_frame(0.01, 1.01, 0.0, 2.0, 1, 0.001);
+transform!(points, :p => ByRow(categorize_period) => :colour)
+
+big_plot = Figure()
+ax = Axis(big_plot[1, 1], xlabel = "τ", ylabel = "b")
+scatter!(ax, points[:,1], points[:,2], color = points[:,4], markersize = 0.75)
+Legend(big_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
+save("plots/big_plot_k1.png", big_plot)
 
 # Zoomed into upper left branch, interesting stuff here. 
 println("Plotting zoom plot with k = 500")
