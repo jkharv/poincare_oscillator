@@ -9,14 +9,14 @@ elem_7 = [PolyElement(color = :goldenrod1)]
 elem_8 = [PolyElement(color = :lightseagreen)]
 elem_a = [PolyElement(color = :lightcyan3)]
 symbols = [elem_1, elem_2, elem_3, elem_4, elem_5, 
-           elem_6, elem_7, elem_8, elem_a]
+           elem_6, elem_7, elem_8, elem_a];
 labels =  ["Period-1", "Period-2", "Period-3", "Period-4", "Period-5",
-           "Period-6", "Period-7", "Period-8", "Aperiodic"]
+           "Period-6", "Period-7", "Period-8", "Period > 8 or \nAperiodic"];
 
 # Big plot
 println("Plotting big plot with k = 50")
-points = make_frame(0.0, 1.0, 0.0, 2.0, 50, 0.001)
-transform!(points, :p => ByRow(categorize_period) => :colour)
+points = make_frame(0.0, 1.0, 0.0, 2.0, 50, 0.001);
+transform!(points, :p => ByRow(categorize_period) => :colour);
 
 big_plot = Figure()
 ax = Axis(big_plot[1, 1], xlabel = "τ", ylabel = "b")
@@ -26,7 +26,7 @@ save("plots/big_plot.png", big_plot)
 
 # Big plot k 10
 println("Plotting big plot with k = 10")
-points = make_frame(0.01, 1.01, 0.0, 2.0, 10, 0.001)
+points = make_frame(0.01, 1.01, 0.0, 2.0, 10, 0.001);
 transform!(points, :p => ByRow(categorize_period) => :colour)
 
 big_plot = Figure()
@@ -37,7 +37,7 @@ save("plots/big_plot_k10.png", big_plot)
 
 # Big plot k 1
 println("Plotting bif plot with k = 1")
-points = make_frame(0.01, 1.01, 0.0, 2.0, 1, 0.001)
+points = make_frame(0.01, 1.01, 0.0, 2.0, 1, 0.001);
 transform!(points, :p => ByRow(categorize_period) => :colour)
 
 big_plot = Figure()
@@ -70,7 +70,7 @@ save("plots/big_plot_w_line.png", big_plot_w_line)
 
 # Zoomed into upper left branch, interesting stuff here. 
 println("Plotting zoom plot with k = 500")
-points = make_frame(0.25, 0.45, 0.9, 1.25, 500, 0.0001)
+points = make_frame(0.25, 0.45, 0.9, 1.25, 500, 0.0001);
 transform!(points, :p => ByRow(categorize_period) => :colour)
 
 zoom_plot = Figure()
@@ -81,7 +81,7 @@ save("plots/zoom_plot.png", zoom_plot)
 
 # Zoomed into the region at (tau=0.25, b=1)
 println("Plotting zoom plot centred at τ = 0.25, b = 1")
-points = make_frame(0.24, 0.28, 0.99, 1.02, 500, 0.00001)
+points = make_frame(0.24, 0.28, 0.99, 1.02, 500, 0.00001);
 transform!(points, :p => ByRow(categorize_period) => :colour)
 
 zoom_zoom_plot = Figure()
@@ -92,7 +92,7 @@ save("plots/zoom_zoom_plot.png", zoom_zoom_plot)
 
 # Animated figure of chaning k value.
 println("Animating changing k value")
-points = make_frame(0.0, 1.0, 0.0, 2.0, 50, 0.002)
+points = make_frame(0.0, 1.0, 0.0, 2.0, 50, 0.002);
 transform!(points, :p => ByRow(categorize_period) => :colour)
    
 τ = Observable(points[:,1])
@@ -109,7 +109,7 @@ record(scene, "plots/vary_k.gif") do io
     
     for k = 50:-0.25:0
 
-        points = make_frame(0.0, 1.0, 0.0, 2.0, k, 0.002)
+        points = make_frame(0.0, 1.0, 0.0, 2.0, k, 0.002);
         transform!(points, :p => ByRow(categorize_period) => :colour)
         
         τ[] = points[:,1]
@@ -123,7 +123,7 @@ end
 
 # Animated figure of changing k value zoom in at the end.
 println("Animating changing k for small values of k")
-points = make_frame(0.0, 1.0, 0.0, 2.0, 5, 0.002)
+points = make_frame(0.0, 1.0, 0.0, 2.0, 5, 0.002);
 transform!(points, :p => ByRow(categorize_period) => :colour)
    
 τ = Observable(points[:,1])
@@ -140,7 +140,7 @@ record(scene, "plots/vary_small_k.gif") do io
 
     for k = 5:-0.005:0
 
-        points = make_frame(0.0, 1.0, 0.0, 2.0, k, 0.002)
+        points = make_frame(0.0, 1.0, 0.0, 2.0, k, 0.002);
         transform!(points, :p => ByRow(categorize_period) => :colour)
         
         τ[] = points[:,1]
