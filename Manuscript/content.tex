@@ -25,7 +25,7 @@ Glass \& Sun \supercite{GLASS1994} studied the organization of regions in (\emph
 
 \begin{figure}[hbt!]
     \begin{center}
-    \includegraphics[width=.7\textwidth]{figures/Fig1.png}
+    \includegraphics[width=.7\textwidth]{../plots/Fig1.png}
     \end{center}
     \caption{A diagram of the oscillator, as seen in Figure 1 from Glass \& Sun \cite{GLASS1994}.}
     \label{osc}
@@ -65,15 +65,15 @@ Figure \ref{replic} shows the phase-locking zones between the number of stimuli 
 \begin{figure}[tbph]
 
 \centering
-        \subfloat[]{\includegraphics[width=0.45\textwidth]{figures/k50_1.png}\label{fig:a}}
+        \subfloat[]{\includegraphics[width=0.45\textwidth]{../plots/k50_1.png}\label{fig:a}}
     \medskip
-        \subfloat[]{\includegraphics[width=0.45\textwidth]{figures/k10.png}\label{fig:b}}
+        \subfloat[]{\includegraphics[width=0.45\textwidth]{../plots/k10.png}\label{fig:b}}
     \hfil
-        \subfloat[]{\includegraphics[width=0.45\textwidth]{figures/k1.png}\label{fig:d}}
+        \subfloat[]{\includegraphics[width=0.45\textwidth]{../plots/k1.png}\label{fig:d}}
     \medskip
-        \subfloat[]{\includegraphics[width=0.45\textwidth]{figures/k50_2.png}\label{fig:e}}
+        \subfloat[]{\includegraphics[width=0.45\textwidth]{../plots/k50_2.png}\label{fig:e}}
     \hfil
-        \subfloat[]{\includegraphics[width=0.6\textwidth]{figures/zoom_zoom_plot.png}\label{fig:f}}
+        \subfloat[]{\includegraphics[width=0.6\textwidth]{../plots/zoom_zoom_plot.png}\label{fig:f}}
     
 \caption{\textbf{Global organization of phase-locking zones of the periodically forced oscillator for different relaxation rate}. We demonstrate the organization of the phase-locking zones for (a) $k = 50 \approx \infty$; (b) $k = 10$; (c) $k = 1$; (d) $k$ infinite at increased resolution at point $\tau = 0.25$ and $b = 1.0$; (e) $k = 50$ at increased resolution at point $\tau = 0.35$ and $b = 1$. We show the $n:1$ locked period-cycles for different frequencies of stimulus $\tau$ and magnitude of stimulus $b$, as aforementioned in the text. We were able to successfully reproduce corresponding Figure 2, Figure 5a and Figure 5b of the original study. Despite the expected minor differences, our results follow the same overall patterns.}
     \label{replic}
@@ -147,9 +147,9 @@ The phase response curve for this instability is then:
 We make use of the identity $\arccos(x) = \arcsin(\sqrt{1-x^2})$, which holds for $b>1$, with $x = \frac{2\sqrt{1/3*(b^2-1)}}{b}$, in order to exploit the law of sines. $\sqrt{1-x^2}$ is then $\sqrt{1-\frac{4(b^2-1)}{3b^2}} = \sqrt{\frac{3b^2-4b^2+4}{3b^2}} = \sqrt{\frac{-b^2+4}{3b^2}}$. $2\pi(\phi_i - \tau) = \arcsin(\sqrt{\frac{-b^2+4}{3b^2}})$ so $\phi_i = \tau +\frac{1}{2\pi}\arcsin(\sqrt{\frac{-b^2+4}{3b^2}})$, which agrees with Section C of Glass \& Sun \supercite{GLASS1994}.
 
 \begin{figure}[tbph]
-    \subfloat[]{\includegraphics[width=0.45\textwidth]{figures/Fig3.png}\label{fig:a}}
+    \subfloat[]{\includegraphics[width=0.45\textwidth]{../plots/Fig3.png}\label{fig:a}}
     \medskip
-    \subfloat[]{\includegraphics[width=0.45\textwidth]{figures/Fig3-2.png}\label{fig:b}}
+    \subfloat[]{\includegraphics[width=0.45\textwidth]{../plots/Fig3-2.png}\label{fig:b}}
     \caption{\textbf{For the period-1 cycle, we can write $\tau = \phi_i - \phi'_i$ for $0\leq \phi \leq1/2$ and $\tau = 1-(\phi'_i - \phi_i)$ for $1/2\leq \phi \leq1$. Fig a) Fig b)}}
     \label{sines}
 \end{figure}
@@ -169,7 +169,7 @@ Furthermore, we numerically simulate the period-1 instability boundary and overl
 
 \begin{figure}[H]
     \begin{center}
-    \includegraphics[width=.8\textwidth]{figures/big_plot_w_line.png}
+    \includegraphics[width=.8\textwidth]{../plots/big_plot_w_line.png}
     \end{center}
     \caption{Phase-locking zones for the oscillator, $k=50$, with $k\rightarrow \infty$ period-1 instability boundaries $b = |\sin(2\pi\tau)|$ ($\tau \leq 1/4$, $\tau \geq 3/4$) and $b = \sqrt{4-3\sin^2(2\pi\tau)}$ ($1/4<\tau<3/4$) in black. The grey region labelled aperiodic could include stable cycles of period nine or greater, or truly aperiodic dynamics.}
     \label{p1-instab}
