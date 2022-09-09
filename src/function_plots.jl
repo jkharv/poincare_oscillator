@@ -1,5 +1,3 @@
-using CairoMakie
-
 elem_1 = [PolyElement(color = :red)]
 elem_2 = [PolyElement(color = :orange)]
 elem_3 = [PolyElement(color = :yellow)]
