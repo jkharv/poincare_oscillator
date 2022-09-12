@@ -2,7 +2,7 @@
 
 ## 2022 Replication of Glass and Sun (1994)
 
-This project is a Julia 1.7.2 replication of Glass and Sun (1994), a paper that
+This project is a Julia 1.8.0 replication of Glass and Sun (1994), a paper that
 analyzed the global organization of phase locking zones of a periodically
 stimulated non-linear limit-cycle oscillator at various relaxation rates. Full
 reference to the original article:
