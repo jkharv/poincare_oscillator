@@ -5,8 +5,8 @@
 \indent In 1994, Glass \& Sun\supercite{GLASS1994} mathematically approximated the effects of periodic pulsatile stimulations to cardiac oscillations using the Poincaré oscillator model. The oscillator is a 2D vector in an abstract  polar coordinate ($r$, $\phi$) state space with $0\leq \phi \leq 1$, that evolves with time according to:
 
 \begin{align}
-   \frac{\partial r}{\partial t} &= kr(1-r)\\ 
-   \frac{\partial \phi}{\partial t}&=1
+   \frac{\partial r}{\partial t} &= kr(1-r) \label{eqn: ODEs1}\\ 
+   \frac{\partial \phi}{\partial t}&=1 \label{eqn: ODEs2}
 \end{align}
 
 \noindent where $r$ is the radial coordinate, $\phi$ is the angular coordinate, and $k$ is the relaxation rate representing the rate of return to the circular limit cycle located at $r=1$. This evolution is periodically interrupted by a horizontal perturbation of magnitude $b$ every $\tau$ units of time. Initially, a point ($r_i$, $\phi_i$) is perturbed horizontally by an amount $b$ to ($r'_i$,$\phi'_i$), then ($r'_i$, $\phi'_i$) is evolved according to the differential equations above for a time $\tau$ arriving at the point ($r_{i+1}$, $\phi_{i+1}$) (see Fig \ref{osc}). We can solve these differential equations explicitly to get a 2-dimensional map relating the  perturbation points ($r'_i$,$\phi'_i$) to the next point at time $\tau$ after relaxation, $(r_{i+1}, \phi_{i+1})$.
@@ -21,18 +21,17 @@
     \label{eqn:2}
 \end{equation}
 
-Glass \& Sun \supercite{GLASS1994} studied the organization of regions in (\emph{b}, $\tau$) space for which a stable periodic oscillation and fixed point exists. These regions, called phase-locking regions or "Arnold tongues", depend on the relaxation rate $\emph{k}$. They are annotated according to the number of stimuli per period (period \#) and the number of complete revolutions in phase (cycle \#) before returning to the fixed point $\phi$.
+Glass \& Sun \supercite{GLASS1994} studied the organization of regions in (\emph{b}, $\tau$) space for which a stable periodic oscillation and fixed point exists. These regions, called phase-locking regions or "Arnold tongues", depend on the relaxation rate $\emph{k}$.
 
 \begin{figure}[hbt!]
     \begin{center}
-    \includegraphics[width=.7\textwidth]{../plots/Fig1.png}
+    \includegraphics[width=.7\textwidth]{figures/Fig1.png}
     \end{center}
     \caption{A diagram of the oscillator, as seen in Figure 1 from Glass \& Sun \cite{GLASS1994}.}
     \label{osc}
 \end{figure}
 
-\indent In this study, we successfully replicate the complex dynamical behaviour observed by Glass \& Sun (1994)\supercite{GLASS1994} resulting from only two uncoupled ordinary differential equations and periodic forcing. This replication study is significant because, firstly, it numerically describes how the finite relaxation rate back to the limit cycle affects the complex organization of the phase-locking regions and, secondly, because it analytically clarifies aspects of the instability boundary along the 1:0 and 1:1 (period \#: cycle \#) phase-locking regions in the infinite relaxation limit $(k \xrightarrow{} \infty$).
-
+\indent In this study, we successfully replicate the complex dynamical behaviour observed by Glass \& Sun (1994)\supercite{GLASS1994} resulting from only two uncoupled ordinary differential equations and periodic forcing. This replication study is significant because, firstly, it numerically describes how the finite relaxation rate back to the limit cycle affects the complex organization of the phase-locking regions and, secondly, because it analytically clarifies aspects of the period-1 instability boundary in two extreme limits, in the immediate relaxation limit $(k \rightarrow \infty)$ and the no relaxation $(k=0)$ limit.
 \section{Numerical Methods}
 \label{sec: Numerical Methods}
 \indent We successfully replicated the results of Glass \& Sun (1994)\supercite{GLASS1994} in the programming language Julia (version 1.7.2).
@@ -56,36 +55,37 @@ where
 
 This resolves the issue of round-off errors when $r_i \approx 1$, $b \approx 1$, and $\phi_i \approx 0.5$. In order to visually compare our results with the original paper, we then convert the Cartesian coordinates back into Polar coordinates.
 
-We use initial values ($x = 1$, $y = 0$) equivalent to ($r = 1$, $\phi = 0$) for $k=50\approx \infty$ to replicate Figure 2 of Glass \& Sun (1994)\supercite{GLASS1994}. The model is simulated over a period of 800 time-steps, however, we only consider the periodic cycles after a 500 transient time had passed.
+We use initial values ($x = 1$, $y = 0$) equivalent to ($r = 1$, $\phi = 0$) for $k=50\approx \infty$ to replicate Figure 2 of Glass \& Sun (1994)\supercite{GLASS1994}. For $k$ set as $10$ or $1$, we use the initial points ($x = -0.3081$, $y = 0.9514$) which correspond approximately to the arbitrarily chosen initial states ($r = 1$, $\phi = 0.3$) of the original paper. The model is simulated over a period of 800 map iterations, however, we only checked periodicity of the fixed point after 500 transient map iterations. 
 
-We compare the global organization of phase-locking regions for different values of $b$ and $\tau$ at $k=50\approx \infty$, $k = 10$, and $k = 1$. For $k$ set as $10$ or $1$, we use the initial points ($x = -0.3081$, $y = 0.9514$) which correspond approximately to the arbitrarily chosen initial states ($r = 1$, $\phi = 0.3$) of the original paper. Furthermore, to investigate the dynamics at specific regions of the phase-locking zones, we produce Figures \ref{replic}d and \ref{replic}e, zoomed in at $\tau = 0.25$ and $b = 1$.
+Figure \ref{replic} shows the numerical phase-locking regions, regions in $(b,\tau)$ parameter space where there exists a period-$n$ fixed point. Each coloured region corresponds to a different value for $n$. The numerical calculations are repeated for three different values of the relaxation rate, $k=50\approx \infty$ (Figure \ref{replic}a), $k = 10$ (Figure \ref{replic}b), and $k = 1$ (Figure \ref{replic}c). Furthermore, to visualize the highly detailed structure of the phase-locking regions arising within certain parameter ranges, we produce Figures \ref{replic}d and \ref{replic}e, zoomed in around $(b=1,\tau=0.35)$ and $(b=1,\tau=0.25)$ respectively.
 
-Figure \ref{replic} shows the phase-locking zones between the number of stimuli per period (denoted \emph{period n}) for 1 cycle, in an $n:1$ ratio. This differs from Glass \& Sun (1994)\supercite{GLASS1994} where $\tau$ was set between 0 and 2. We chose $\tau$ between 1 and 2 as it is simply a reflection of the image at $\tau$ between 0 and 1.
+!!!Discuss .gifs!!!
 
 \begin{figure}[tbph]
-
 \centering
-        \subfloat[]{\includegraphics[width=0.45\textwidth]{../plots/k50_1.png}\label{fig:a}}
+        \subfloat[]{\includegraphics[width=0.45\textwidth]{figures/k50_1.png}\label{fig:a}}
     \medskip
-        \subfloat[]{\includegraphics[width=0.45\textwidth]{../plots/k10.png}\label{fig:b}}
+        \subfloat[]{\includegraphics[width=0.45\textwidth]{figures/k10.png}\label{fig:b}}
     \hfil
-        \subfloat[]{\includegraphics[width=0.45\textwidth]{../plots/k1.png}\label{fig:d}}
+        \subfloat[]{\includegraphics[width=0.45\textwidth]{figures/k1.png}\label{fig:d}}
     \medskip
-        \subfloat[]{\includegraphics[width=0.45\textwidth]{../plots/k50_2.png}\label{fig:e}}
+        \subfloat[]{\includegraphics[width=0.45\textwidth]{figures/k50_2.png}\label{fig:e}}
     \hfil
-        \subfloat[]{\includegraphics[width=0.6\textwidth]{../plots/zoom_zoom_plot.png}\label{fig:f}}
+        \subfloat[]{\includegraphics[width=0.6\textwidth]{figures/zoom_zoom_plot.png}\label{fig:f}}
     
-\caption{\textbf{Global organization of phase-locking zones of the periodically forced oscillator for different relaxation rate}. We demonstrate the organization of the phase-locking zones for (a) $k = 50 \approx \infty$; (b) $k = 10$; (c) $k = 1$; (d) $k = 50$ at increased resolution at point $\tau = 0.25$ and $b = 1.0$; (e) $k = 50$ at increased resolution at point $\tau = 0.35$ and $b = 1$. We show the $n:1$ locked period-cycles for different frequencies of stimulus $\tau$ and magnitude of stimulus $b$, as aforementioned in the text. We were able to successfully reproduce corresponding Figure 2, Figure 5a and Figure 5b of the original study. Despite the expected minor differences, our results follow the same overall patterns.}
+\caption{\textbf{Global organization of phase-locking regions of the periodically forced oscillator for different relaxation rates}. (a) $k = 50 \approx \infty$; (b) $k = 10$; (c) $k = 1$; (d) $k = 50$ at high resolution near $(b=1,\tau=0.35)$; (e) $k = 50$ at high resolution near $(b=1,\tau=0.25)$. Pixel colours represent that for particular values of $(b,\tau)$, there exists a fixed point somewhere in $(r,\phi)$ space, for some number of iterations of the map. Gray means for these parameter values there is no point that returns to itself in $\leq8$ periods, i.e. there might not exist any fixed point, or the fixed point might be for a larger number map iterations.}
     \label{replic}
 \end{figure}
+
+The global organization of the phase-locking regions follow the same overall patterns as depicted in the original study (Figure 2, Figure 5a and Figure 5b in \supercite{GLASS1994}). Therefore we were able to successfully reproduce this aspect of the original study.
 
 \section{Analytical Results}
 \indent Here, we analytically calculate the period-1 instability boundary in the immediate relaxation limit ($k \rightarrow \infty$). $k \rightarrow \infty$ is called the immediate relaxation limit as the system returns (in the radial direction) to the limit cycle at $r=1$ immediately after the perturbation; all time evolutions occur on the unit circle and the 2D map reduces to a 1D map described by $\phi_{i+1}(\phi_i, b, \tau)$. The period-1 instability boundary is determined by setting $\phi_{i+1} = \textnormal{mod} \{\phi_i,1\}$ (period-1 condition, see equation \ref{eqn:2}) and $|\frac{\partial \phi_{i+1}}{\partial \phi_i}|>1$ (instability condition). $|\frac{\partial \phi_{i+1}}{\partial \phi_i}|>1$ represents small deviations from the fixed point becoming larger after applications of the 1D map (Strogatz, 2000\supercite{Strogatz}). After a few standard manipulations, as described in the Appendix section \ref{supp: sub1}, we find for the 1D map $\phi_{i+1}(\phi_i, b, \tau)$ the following result; and calculate its derivative.
 \begin{equation}
     \phi_{i+1} =
     \begin{cases}
-     \frac{1}{2\pi}\arccos(\frac{b+r \cos(\phi 2\pi)}{\sqrt{r^2+b^2+2rb\cos(\phi 2\pi)}}) + \tau & 0 \leq \phi_i \leq 1/2 \\
-    -\frac{1}{2\pi}\arccos(\frac{b+r \cos(\phi 2\pi)}{\sqrt{r^2+b^2+2rb\cos(\phi 2\pi)}}) + 1 +\tau & 1/2 \leq \phi_i \leq 1 \\
+     \frac{1}{2\pi}\arccos(\frac{b+r \cos(2\pi \phi_i)}{\sqrt{r^2+b^2+2rb\cos(2\pi \phi_i)}}) + \tau & 0 \leq \phi_i \leq 1/2 \\
+    -\frac{1}{2\pi}\arccos(\frac{b+r \cos(2\pi \phi_i)}{\sqrt{r^2+b^2+2rb\cos( 2\pi \phi_i)}}) + 1 +\tau & 1/2 \leq \phi_i \leq 1 \\
     \end{cases}
     \label{eq: 1D map}
 \end{equation} The derivative is found to be:
@@ -137,7 +137,7 @@ b&= -\cos(2\pi \phi_i) \nonumber \\
     -1 &= \frac{1+b\cos(2\pi \phi_i)}{1 + b^2 + 2b\cos(2\pi \phi_i)} \nonumber \\
     0 &= 2+3b\cos(2\pi \phi_i) + b^2 \nonumber \\
     \frac{-b^2-2}{3b} &= \cos(2\pi \phi_i)
-    \label{eq:square} 
+    \label{eq: square} 
 \end{align}
 The phase response curve for this instability is then:
 \begin{align}
@@ -147,9 +147,9 @@ The phase response curve for this instability is then:
 We make use of the identity $\arccos(x) = \arcsin(\sqrt{1-x^2})$, which holds for $b>1$, with $x = \frac{2\sqrt{1/3*(b^2-1)}}{b}$, in order to exploit the law of sines. $\sqrt{1-x^2}$ is then $\sqrt{1-\frac{4(b^2-1)}{3b^2}} = \sqrt{\frac{3b^2-4b^2+4}{3b^2}} = \sqrt{\frac{-b^2+4}{3b^2}}$. $2\pi(\phi_i - \tau) = \arcsin(\sqrt{\frac{-b^2+4}{3b^2}})$ so $\phi_i = \tau +\frac{1}{2\pi}\arcsin(\sqrt{\frac{-b^2+4}{3b^2}})$, which agrees with Section C of Glass \& Sun \supercite{GLASS1994}.
 
 \begin{figure}[tbph]
-    \subfloat[]{\includegraphics[width=0.45\textwidth]{../plots/Fig3.png}\label{fig:a}}
+    \subfloat[]{\includegraphics[width=0.45\textwidth]{figures/Fig3.png}\label{fig:a}}
     \medskip
-    \subfloat[]{\includegraphics[width=0.45\textwidth]{../plots/Fig3-2.png}\label{fig:b}}
+    \subfloat[]{\includegraphics[width=0.45\textwidth]{figures/Fig3-2.png}\label{fig:b}}
     \caption{\textbf{For the period-1 cycle, we can write (a) $\tau = \phi_i - \phi'_i$ for $0\leq \phi \leq1/2$ and (b) $\tau = 1-(\phi'_i - \phi_i)$ for $1/2\leq \phi \leq1$.}}
     \label{sines}
 \end{figure}
@@ -165,20 +165,22 @@ We make use of the identity $\arccos(x) = \arcsin(\sqrt{1-x^2})$, which holds fo
 
 In the Appendix section \ref{supp: sub2}, we check if there are any restrictions on $\tau$ for which $b = \sqrt{4-3\sin^2(2\pi\tau)}$ is not a period-1 instability boundary. We find $b = \sqrt{4-3\sin^2(2\pi\tau)}$ holds true only for $1/4<\tau<3/4$.\\
 
-Furthermore, we numerically simulate the period-1 instability boundary and overlay it with the phase-locking zones (see Fig. \ref{p1-instab}). 
+Furthermore, we numerically simulate the period-1 instability boundary and overlay it with the phase-locking regions (see Fig. \ref{p1-instab}). 
 
 \begin{figure}[H]
     \begin{center}
-    \includegraphics[width=.8\textwidth]{../plots/big_plot_w_line.png}
+    \includegraphics[width=.8\textwidth]{figures/big_plot_w_line.png}
     \end{center}
-    \caption{Phase-locking zones for the oscillator, $k=50$, with $k\rightarrow \infty$ period-1 instability boundaries $b = |\sin(2\pi\tau)|$ ($\tau \leq 1/4$, $\tau \geq 3/4$) and $b = \sqrt{4-3\sin^2(2\pi\tau)}$ ($1/4<\tau<3/4$) in black. The grey region labelled aperiodic could include stable cycles of period nine or greater, or truly aperiodic dynamics.}
+    \caption{Phase-locking regions for the oscillator, $k=50$, with $k\rightarrow \infty$ period-1 instability boundaries $b = |\sin(2\pi\tau)|$ ($\tau \leq 1/4$, $\tau \geq 3/4$) and $b = \sqrt{4-3\sin^2(2\pi\tau)}$ ($1/4<\tau<3/4$) in black. The grey region labelled aperiodic could include stable cycles of period nine or greater, or truly aperiodic dynamics.}
     \label{p1-instab}
 \end{figure}
 
-Figure \ref{p1-instab} compares the analytically calculated period-1 instability boundaries with numerical simulations results from Section \ref{sec: Numerical Methods}. We observe quantitative agreement between period-1 instability boundaries determined by both methods, taking into consideration the domain restrictions on $\tau$ for Eq. \ref{eq:bound1} and Eq. \ref{eq:bound2}. However, it should be noted that these calculations do not reveal the cycle number for either instability boundary.
+Figure \ref{p1-instab} compares the analytically calculated period-1 instability boundaries with numerical simulations results from Section \ref{sec: Numerical Methods}. We observe quantitative agreement between period-1 instability boundaries determined by both methods, taking into consideration the domain restrictions on $\tau$ for Eq. \ref{eq:bound1} and Eq. \ref{eq:bound2}.
 
 \section{Conclusion}
 
 Periodic rhythms are fundamental in driving certain biological processes. Understanding the complex dynamics arising from periodic perturbations using a simple mathematical model is an important first step towards understanding the underlying physiology in oscillatory cardiac tissue, which in turn may eventually lead to improved treatments for diseases involving rhythmic dis-regulation.
 
 We successfully replicated the dynamics observed by Glass \& Sun \supercite{GLASS1994} of a periodically forced Poincaré oscillator model. Specifically, the geometry of the phase-locking regions for varying stimulus intensities, time interval between stimulations, and rate of return to the limit cycle, is reproduced numerically. In addition, the period-1 instability boundary in the immediate relaxation limit is calculated analytically and is found to agree with both our numerical results and the results presented in the original study by Glass \& Sun \supercite{GLASS1994}. We clarify the mathematical origin of domain restrictions on $\tau$ for Eq. \ref{eq:bound1} and Eq. \ref{eq:bound2}. This is significant because without accounting for domain restrictions on $\tau$, analytic calculations would predict certain instability boundaries that do not exist.
+
+!!!Add discussion about the no relaxation $(k=0)$, limit. Make a Figure 4b.!!!
