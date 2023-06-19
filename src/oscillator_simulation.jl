@@ -71,31 +71,6 @@ function make_frame(τ_start, τ_end, b_start, b_end, k, stepsize)
     return points
 end
 
-# Do the simulations needed for one frame of a lyapunov chart
-function make_frame_lyapunov(τ_start, τ_end, b_start, b_end, k, stepsize)
-    
-    ll = ReentrantLock()
-    points = DataFrame(τ = Float64[], b = Float64[], λ = Float64[])
-    for τ in τ_start:stepsize:τ_end
-        Threads.@threads for b in b_start:stepsize:b_end
-
-            state0 = [1.0, 0.1, 0.0] # x, y, ϕ
-            parameters = [k, τ, b] # k, τ, b
-            stim_system = DiscreteDynamicalSystem(stim_map, state0, parameters)
-
-            λ = lyapunov(stim_system, 1000, Ttr = 500)
-
-           lock(ll)
-           try
-                push!(points, [τ, b, λ])
-           finally
-                unlock(ll)
-           end
-        end
-    end
-    return points
-end
-
 function categorize_period(p::AbstractFloat)
 
     if p == 1.0
