@@ -1,6 +1,18 @@
-# You get rounding errors that trip up acos when the arg
-# is 1 + ϵ, This function catches those and rounds back down
-# to 1
+# This file contains code which is used to plot figures S2 and S3 in the supplementary
+# material. These two figures are used to show the behaviour of two functions that come 
+# out of the analytical derivations in our replication.
+
+"""
+    ϵ_fix(x)
+
+`acos` gets tripped up when given a number larger than one. In some functions, we ran into
+issues with rounding errors producing values of 1.0 + ϵ. This function simply rounds those
+back down to avoid getting `DomainError`s being thrown by `acos`.
+
+# Arguments
+
+- `x::Float64`: Float value to be rounded down.
+"""
 function ϵ_fix(x)
 
     if abs(x) > 1.0
@@ -10,9 +22,18 @@ function ϵ_fix(x)
     end
 end
 
+"""
+    △ϕsurface(ϕ, b, s)
+
+Eqs. S17 and S18 from the supplementary materials of our replication.
+
+# Arguments
+
+- `ϕ::Float64`
+- `b::Float64`
+- `s::Float64`: Switches betwen eqs. S17 (s = -1.0) and S18 (s = s = +1.0) 
+"""
 function △ϕsurface(ϕ, b, s)
-# S is used to switch the minus sign which differentiatates
-# eq. S17 from S18.
 
     modArg1 = (1/2π) * acos(
                             ϵ_fix(
@@ -46,6 +67,12 @@ end
 
 # Family of solutions to eq18 of this form =
 # N - acos((-b^2 -2)/3b)/2π where N ∈ Z
+"""
+    ϕisoline(b)
+
+There is a family of solutions to eq. S18 represented by N - isoline(b) where N ∈ Ζ.
+This function (N = 0) is the black lines plotted in figures S2 and S3.
+"""
 function ϕisoline(b)
 
     acos((-b^2 -2)/3b)/2π

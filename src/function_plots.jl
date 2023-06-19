@@ -1,3 +1,6 @@
+# All the code in this file is dedicated to plotting figure S1 from our supplementary
+# material.
+
 elem_1 = [PolyElement(color = :red)]
 elem_2 = [PolyElement(color = :orange)]
 elem_3 = [PolyElement(color = :yellow)]
@@ -5,8 +8,8 @@ elem_4 = [PolyElement(color = :blue)]
 elem_5 = [PolyElement(color = :green)]
 
 symbols = [elem_1, elem_2, elem_3, elem_4, elem_5]
-
 labels =  ["b=0.25", "b=0.5", "b=1", "b=1.25", "b=1.5"]
+
 # Plot of map with b = 1/2
 b_plot = Figure(fontsize = 16)
 ax = Axis(b_plot[1, 1], xlabel = L"ϕ_{i}", ylabel = L"ϕ_{i+1}",
@@ -79,4 +82,3 @@ lines!(ax, xs, ys, linewidth = 2, color = :black, linestyle = :dash)
 Legend(b_plot[1, 2], symbols, labels, patchsize = (35, 35), rowgap = 10)
 
 save("plots/b_plot.png", b_plot)
-

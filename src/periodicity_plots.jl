@@ -1,3 +1,6 @@
+# This file includes all the plotting code for the periodicity plots in the manuscript and
+# the gifs in the README of the git repo.
+
 # Legend stuff I will need for all the other plots
 elem_1 = [PolyElement(color = :orange)]
 elem_2 = [PolyElement(color = :yellow)]
@@ -30,16 +33,16 @@ lines!(ax, xs, ys, linewidth = 2, color = :black)
 # Right lower.
 xs = 0.75:0.001:1 
 ys = -sin.(2*π*xs)
-lines!(ax, xs, ys, linewidth = 2, color = :black)
-# Upper
-upper(x) = sqrt(4 - 3*sin(2*π*x)^2)
-xs = 0.25:0.001:0.75 
-ys = upper.(xs)
-lines!(ax, xs, ys, linewidth = 2, color = :black)
-save("plots/big_plot_w_line.png", big_plot_w_line)
+    lines!(ax, xs, ys, linewidth = 2, color = :black)
+    # Upper
+    upper(x) = sqrt(4 - 3*sin(2*π*x)^2)
+    xs = 0.25:0.001:0.75 
+    ys = upper.(xs)
+    lines!(ax, xs, ys, linewidth = 2, color = :black)
+    save("plots/big_plot_w_line.png", big_plot_w_line)
 
-# Big plot k 10
-println("Plotting big plot with k = 10")
+    # Big plot k 10
+    println("Plotting big plot with k = 10")
 points = make_frame(0.01, 1.01, 0.0, 2.0, 10, 0.001);
 transform!(points, :p => ByRow(categorize_period) => :colour)
 
